@@ -14,25 +14,26 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{
     font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
-    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;
+    color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;
+    word-break:keep-all;
     background:
       radial-gradient(900px 520px at 85% -8%, rgba(96,165,250,.18) 0%, transparent 58%),
       radial-gradient(820px 480px at -8% 12%, rgba(244,114,182,.16) 0%, transparent 55%),
       var(--bg);
   }
-  .wrap{max-width:600px;margin:0 auto;padding:0 20px}
+  .wrap{max-width:600px;margin:0 auto;padding:0 22px}
   .screen{display:none}
   .screen.active{display:block}
   button{font-family:inherit;cursor:pointer}
 
   /* ---- intro ---- */
-  .hero{text-align:center;padding:74px 0 40px}
+  .hero{text-align:center;padding:72px 0 44px}
   .eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:20px}
-  h1{font-size:clamp(30px,6.5vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.28}
+  h1{font-size:clamp(30px,6.5vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.3}
   h1 .g{background:linear-gradient(90deg,#34d399,#60a5fa,#f472b6);
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  .lede{color:var(--sub);font-size:17px;margin:20px auto 0;max-width:450px}
-  .meta{color:var(--sub);font-size:14px;margin-top:24px;opacity:.85}
+  .lede{color:var(--sub);font-size:17px;margin:20px auto 0;max-width:460px;line-height:1.75}
+  .meta{color:var(--sub);font-size:14px;margin-top:24px;opacity:.85;line-height:1.7}
   .btn{border:none;font-weight:700;font-size:17px;color:#0e1020;
     background:linear-gradient(135deg,#34d399,#60a5fa);
     padding:16px 42px;border-radius:14px;margin-top:30px;transition:transform .08s,box-shadow .15s}
@@ -49,13 +50,14 @@
   .pfill{height:100%;width:0;background:linear-gradient(90deg,#34d399,#60a5fa);border-radius:999px;transition:width .25s ease}
 
   /* ---- question ---- */
-  .qbox{padding-top:44px}
+  .qbox{padding-top:42px;padding-bottom:60px}
   .qnum{color:var(--accent);font-weight:800;font-size:15px}
-  .qtext{font-size:clamp(22px,4.2vw,28px);font-weight:700;line-height:1.5;margin-top:12px;min-height:88px}
-  .scale{display:flex;flex-direction:column;gap:11px;margin-top:32px}
+  .qtext{font-size:clamp(21px,4.2vw,27px);font-weight:700;line-height:1.55;margin-top:12px;
+    padding-bottom:4px}
+  .scale{display:flex;flex-direction:column;gap:11px;margin-top:30px}
   .opt{display:flex;align-items:center;gap:14px;text-align:left;width:100%;
     border:1.5px solid var(--line);background:var(--card);color:var(--ink);
-    border-radius:14px;padding:17px 18px;font-size:16.5px;font-weight:500;
+    border-radius:14px;padding:16px 18px;font-size:16.5px;font-weight:500;line-height:1.4;
     transition:border-color .12s,background .12s,transform .08s}
   .opt:hover{border-color:var(--accent);background:var(--card2)}
   .opt:active{transform:scale(.99)}
@@ -63,7 +65,7 @@
     display:grid;place-items:center;font-weight:800;font-size:15px;color:var(--sub);transition:.12s}
   .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
   .opt.sel .num{background:var(--accent);color:#0e1020}
-  .navrow{display:flex;margin-top:24px}
+  .navrow{display:flex;margin-top:22px}
   .nav{background:transparent;border:none;color:var(--sub);font-size:15px;padding:10px 4px;font-weight:600}
   .nav:hover{color:var(--ink)}
   .nav:disabled{opacity:.3;cursor:default}
@@ -71,19 +73,21 @@
   /* ---- result ---- */
   .rtop{text-align:center;padding-top:40px}
   .rcard{background:var(--card);border:1px solid var(--line);border-radius:24px;
-    padding:34px 26px;box-shadow:var(--shadow);text-align:center;margin-top:16px}
-  .remoji{font-size:62px;line-height:1}
-  .rtype{font-size:32px;font-weight:800;margin-top:10px}
-  .rsub{color:var(--sub);font-size:15px;margin-top:2px;letter-spacing:.04em}
-  .roneline{font-size:17px;margin-top:18px;color:var(--ink)}
+    padding:32px 24px 36px;box-shadow:var(--shadow);text-align:center;margin-top:16px}
+  .warm{color:var(--sub);font-size:14.5px;margin-bottom:6px}
+  .remoji{font-size:60px;line-height:1}
+  .rtype{font-size:30px;font-weight:800;margin-top:8px}
+  .rsub{color:var(--sub);font-size:13.5px;margin-top:3px;letter-spacing:.06em}
+  .roneline{font-size:17px;margin-top:16px;color:var(--ink);line-height:1.7}
 
-  /* ---- big clear quadrant ---- */
-  .quad{position:relative;margin:36px auto 6px;max-width:330px}
+  /* ---- quadrant (no clipping) ---- */
+  .quad{margin:34px auto 0;max-width:320px}
+  .qcap{font-size:12.5px;color:var(--sub);font-weight:600;margin-bottom:12px}
   .qgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;aspect-ratio:1/1}
   .qc{border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:6px;border:2px solid var(--line);background:var(--card2);transition:.35s;opacity:.5}
-  .qc .qe{font-size:27px;filter:grayscale(.4)}
-  .qc .qn{font-size:14px;font-weight:700;color:var(--sub)}
+    gap:6px;border:2px solid var(--line);background:var(--card2);transition:.35s;opacity:.45}
+  .qc .qe{font-size:26px;filter:grayscale(.4)}
+  .qc .qn{font-size:13.5px;font-weight:700;color:var(--sub)}
   .qc.on{opacity:1;transform:scale(1.05);box-shadow:0 10px 28px rgba(0,0,0,.4)}
   .qc.on .qe{filter:none}
   .qc.on .qn{color:#0e1020}
@@ -91,13 +95,11 @@
   .qc.on.anxious{background:var(--anxious);border-color:var(--anxious)}
   .qc.on.avoid{background:var(--avoid);border-color:var(--avoid)}
   .qc.on.fearful{background:var(--fearful);border-color:var(--fearful)}
-  .axis{display:flex;justify-content:space-between;color:var(--sub);font-size:12.5px;font-weight:600;margin-top:11px;padding:0 2px}
-  .axis-y{position:absolute;left:-26px;top:50%;transform:translateY(-50%) rotate(-90deg);
-    color:var(--sub);font-size:12.5px;font-weight:600;white-space:nowrap}
+  .qaxis{font-size:12px;color:var(--sub);margin-top:12px;line-height:1.8}
 
   /* score bars */
   .scores{margin-top:30px;text-align:left;display:flex;flex-direction:column;gap:18px}
-  .sc h4{font-size:14.5px;font-weight:700;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+  .sc h4{font-size:14.5px;font-weight:700;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
   .sc .badge2{font-weight:600;font-size:13px;color:var(--sub)}
   .sc .track{height:13px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden}
   .sc .fill{height:100%;border-radius:999px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
@@ -107,15 +109,43 @@
   .panel{border-top:1px solid var(--line);padding-top:20px;margin-top:18px}
   .panel h4{font-size:15.5px;font-weight:800;margin-bottom:12px}
   .panel ul{list-style:none}
-  .panel li{position:relative;padding-left:24px;margin:10px 0;font-size:15.5px;color:var(--ink)}
-  .panel li::before{content:"";position:absolute;left:3px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .panel li{position:relative;padding-left:24px;margin:10px 0;font-size:15.5px;color:var(--ink);line-height:1.65}
+  .panel li::before{content:"";position:absolute;left:3px;top:10px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
   .panel.grow li::before{background:var(--secure)}
+
+  /* books */
+  .book{display:flex;gap:14px;align-items:flex-start;background:var(--card2);border:1px solid var(--line);
+    border-radius:14px;padding:14px 16px;margin-top:12px}
+  .book .bi{font-size:24px;flex:none;margin-top:2px}
+  .book .bt{font-size:15.5px;font-weight:700}
+  .book .ba{font-size:12.5px;color:var(--sub);margin-top:1px}
+  .book .bw{font-size:14px;color:var(--ink);opacity:.9;margin-top:6px;line-height:1.6}
+
+  /* share */
+  .share{margin-top:30px;border-top:1px solid var(--line);padding-top:26px}
+  .share h4{font-size:16px;font-weight:800;margin-bottom:4px}
+  .share p{font-size:13.5px;color:var(--sub);margin-bottom:16px}
+  .sbtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .sbtn{flex:1;min-width:140px;border:none;font-weight:700;font-size:15.5px;padding:15px 18px;border-radius:13px;
+    transition:transform .08s,box-shadow .15s}
+  .sbtn:active{transform:scale(.97)}
+  .sbtn.primary{color:#0e1020;background:linear-gradient(135deg,#34d399,#60a5fa)}
+  .sbtn.primary:hover{box-shadow:0 10px 26px rgba(96,165,250,.4)}
+  .sbtn.sec{color:var(--ink);background:var(--card2);border:1px solid var(--line)}
+  .sbtn.sec:hover{background:#2a3057}
 
   .c-secure{color:var(--secure)} .c-anxious{color:var(--anxious)}
   .c-avoid{color:var(--avoid)} .c-fearful{color:var(--fearful)}
 
-  .disclaimer{color:var(--sub);font-size:13px;margin:24px auto 64px;text-align:center;line-height:1.75;max-width:480px}
-  .restart-row{margin-top:28px;text-align:center}
+  .disclaimer{color:var(--sub);font-size:13px;margin:24px auto 70px;text-align:center;line-height:1.8;max-width:480px}
+  .restart-row{margin-top:24px;text-align:center}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);
+    background:#2a3057;color:#fff;font-size:14.5px;font-weight:600;padding:14px 22px;border-radius:12px;
+    box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.3s;z-index:20;border:1px solid var(--line);
+    max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
@@ -126,8 +156,9 @@
     <div class="hero">
       <div class="eyebrow">애착 유형 자가진단 · ECR 기반</div>
       <h1>나는 어떤<br><span class="g">애착 유형</span>일까?</h1>
-      <p class="lede">가까운 관계에서의 내 모습에 대한 16개의 문장. 답하면 <b>불안</b>과 <b>회피</b> 점수로 네 가지 유형 중 하나를 알려드려요.</p>
-      <p class="meta">약 2분 · 답을 고르면 바로 넘어가요 · 결과는 전송되지 않아요</p>
+      <p class="lede">우리가 사랑하고, 다투고, 거리를 두는 방식엔 저마다의 '관계 습관'이 있어요.
+      가까운 관계에서의 내 모습에 대한 16개 문장에 답하면, 나의 애착 유형을 따뜻하게 짚어드릴게요. 😊</p>
+      <p class="meta">⏱️ 약 2분 · 정답은 없어요, 솔직하게 답할수록 정확해요 · 결과는 내 기기에만 남고 어디에도 전송되지 않아요</p>
       <button class="btn" onclick="start()">시작하기</button>
     </div>
   </section>
@@ -150,8 +181,11 @@
   <section class="screen" id="result"></section>
 
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
+const SHARE_URL="https://songyiiiii.github.io/attachment-test/test.html";
+
 const Q=[
   {t:"연락이 평소보다 늦어지면 '내가 뭘 잘못했나' 하는 생각이 든다.",d:"anx"},
   {t:"상대가 날 정말 사랑하는지 자주 확인받고 싶다.",d:"anx"},
@@ -208,61 +242,119 @@ function finish(){
 }
 const INFO={
   secure:{emoji:"😊",name:"안정형",en:"SECURE",cls:"secure",
-    one:"가까워도, 혼자여도 괜찮은 사람. 친밀함과 독립 사이의 균형이 자연스러워요.",
-    traits:["감정을 솔직히 표현하고, 기댈 줄도 안다","상대가 기대오는 것도 편안하게 받아들인다","갈등을 '위협'이 아니라 '함께 풀 문제'로 본다"],
-    grow:["지금의 안정감이 큰 강점이에요 — 관계의 '안전기지'가 되어줄 수 있어요","불안형·회피형 상대를 진정시켜 주는 역할을 할 수 있어요","솔직한 소통을 계속 이어가세요"]},
+    warm:"끝까지 솔직하게 답해줘서 고마워요. 당신의 결과예요 🌿",
+    one:"가까워도, 혼자여도 괜찮은 사람. 친밀함과 독립 사이의 균형이 자연스러운 당신이에요.",
+    traits:["감정을 솔직히 표현하고, 기댈 줄도 알아요","상대가 기대오는 것도 편안하게 받아들여요","갈등을 '위협'이 아니라 '함께 풀 문제'로 봐요"],
+    grow:["지금의 안정감은 큰 강점이에요 — 관계의 '안전기지'가 되어줄 수 있어요","불안형·회피형 상대를 진정시켜 주는 든든한 사람이 될 수 있어요","지금처럼 솔직한 소통을 계속 이어가면 돼요"],
+    books:[{t:"그들이 그렇게 연애하는 까닭",a:"아미르 레빈·레이첼 헬러 (Attached)",w:"애착 과학 분야의 세계적 베스트셀러. 안정형의 강점을 관계에 잘 살리는 법을 알려줘요."},
+           {t:"사랑의 기술",a:"에리히 프롬",w:"사랑을 '저절로 빠지는 감정'이 아니라 '배우고 키우는 능력'으로 보는 고전이에요."}]},
   anxious:{emoji:"🥺",name:"불안형",en:"ANXIOUS",cls:"anxious",
-    one:"사랑받고 싶은 마음이 크고, 버림받음에 대한 두려움이 핵심인 유형이에요.",
-    traits:["끊임없는 확인과 안심을 필요로 한다","연락이 늦으면 금세 불안하고 거절감을 느낀다","상대의 작은 신호를 과하게 해석한다"],
-    grow:["불안이 올라오면 '잠시 멈추고 진정하기'를 연습해요","혼자 해석하기 전에 직접 물어보세요 — 대부분 최악의 상상은 사실이 아니에요","스스로를 안심시키는 힘을 키우면 관계가 한결 편해져요"]},
+    warm:"솔직하게 마주해줘서 고마워요. 이건 약점이 아니라, 사랑이 큰 마음의 다른 이름이에요 💛",
+    one:"사랑받고 싶은 마음이 크고, 버림받음에 대한 두려움이 핵심인 유형이에요. 그만큼 깊이 사랑할 줄 아는 사람이에요.",
+    traits:["끊임없는 확인과 안심을 필요로 해요","연락이 늦으면 금세 불안하고 거절감을 느껴요","상대의 작은 신호도 크게 해석하곤 해요"],
+    grow:["불안이 올라오면 '잠시 멈추고 숨 고르기'를 먼저 해보세요","혼자 상상하기 전에 직접 물어보세요 — 최악의 상상은 대부분 사실이 아니에요","스스로를 안심시키는 힘을 키우면 관계가 한결 편안해져요"],
+    books:[{t:"그들이 그렇게 연애하는 까닭",a:"아미르 레빈·레이첼 헬러 (Attached)",w:"불안형의 마음이 '왜' 그렇게 작동하는지 가장 정확하게 짚어주는 책이에요."},
+           {t:"관계 심리 수업",a:"애착유형 입문서",w:"불안한 자동반응을 알아차리고 안정형으로 한 걸음씩 다가가는 연습을 도와줘요."}]},
   avoid:{emoji:"🧊",name:"회피형",en:"AVOIDANT",cls:"avoid",
-    one:"독립을 무엇보다 중시하고, 친밀함을 거리 두기로 방어하는 유형이에요.",
-    traits:["독립심이 강하고 깊은 감정 교류를 불편해한다","감정을 잘 드러내지 않고 속으로 누른다","가까워지면 답답함을 느껴 거리를 둔다"],
-    grow:["도망가고 싶을 때 '머물러 한마디 표현하기'를 연습해요","기대는 건 약점이 아니라 친밀함의 일부예요","작은 감정부터 조금씩 나눠 보면 관계가 깊어져요"]},
+    warm:"여기까지 와줘서 고마워요. 거리를 두는 건 당신을 지키려 했던 마음이기도 해요 🤍",
+    one:"독립을 무엇보다 중시하고, 친밀함을 거리 두기로 지켜내는 유형이에요. 혼자서도 단단한 사람이죠.",
+    traits:["독립심이 강하고, 깊은 감정 교류를 불편해해요","감정을 드러내기보다 속으로 정리하는 편이에요","가까워지면 답답함을 느껴 거리를 둬요"],
+    grow:["도망가고 싶을 때, '머물러서 한마디 표현하기'를 작게 연습해보세요","기대는 건 약점이 아니라 친밀함의 일부예요","작은 감정부터 조금씩 나눠 보면 관계가 더 깊어져요"],
+    books:[{t:"나는 왜 혼자가 편할까?",a:"오카다 다카시",w:"'회피형 인간'이라는 말을 널리 알린 책. 거리 두는 마음의 뿌리를 깊이 이해하게 해줘요."},
+           {t:"관계 심리 수업",a:"애착유형 입문서",w:"거리 두기 패턴을 알아차리고, 부담 없이 가까워지는 법을 알려줘요."}]},
   fearful:{emoji:"🌪️",name:"혼란형",en:"FEARFUL-AVOIDANT",cls:"fearful",
-    one:"불안과 회피가 한 사람 안에 공존해, 가까워지고 싶으면서도 그게 무서운 유형이에요.",
-    traits:["사랑을 원하면서 동시에 두려워한다","가까워지면 밀어내고, 멀어지면 끌어당긴다","감정과 행동이 예측하기 어렵게 오간다"],
-    grow:["밀고 당기는 패턴이 '내 안전장치'였음을 알아차리는 게 첫걸음","안전하고 일관된 사람과의 반복 경험이 가장 큰 약이 돼요","트라우마가 얽혀 있다면 상담의 도움이 특히 효과적이에요"]},
+    warm:"복잡한 마음을 솔직하게 들여다봐줘서 고마워요. 당신은 충분히 사랑받을 자격이 있어요 💗",
+    one:"가까워지고 싶은 마음과 그게 무서운 마음이 함께 있는 유형이에요. 네 유형 중 가장 큰 내적 갈등을 견뎌온 사람이죠.",
+    traits:["사랑을 원하면서 동시에 두려워해요","가까워지면 밀어내고, 멀어지면 다시 끌어당겨요","감정과 행동이 예측하기 어렵게 오가요"],
+    grow:["밀고 당기는 패턴이 '나를 지키려던 장치'였음을 알아차리는 게 첫걸음이에요","안전하고 일관된 사람과의 반복된 좋은 경험이 가장 큰 약이 돼요","상처가 깊다면 상담의 도움을 받는 게 특히 효과적이에요"],
+    books:[{t:"나는 왜 혼자가 편할까?",a:"오카다 다카시",w:"회피와 불안이 뒤섞인 마음의 뿌리를, 어린 시절 경험까지 거슬러 이해하게 해줘요."},
+           {t:"그들이 그렇게 연애하는 까닭",a:"아미르 레빈·레이첼 헬러 (Attached)",w:"밀고 당기는 관계 패턴을 애착 과학의 언어로 차분히 풀어줘요."}]},
 };
 function showResult(type,anx,avo){
   const t=INFO[type];const el=document.getElementById('result');
   el.innerHTML=`
     <div class="rtop"><div class="eyebrow">당신의 결과</div></div>
     <div class="rcard">
+      <div class="warm">${t.warm}</div>
       <div class="remoji">${t.emoji}</div>
       <div class="rtype c-${t.cls}">${t.name}</div>
       <div class="rsub">${t.en}</div>
       <div class="roneline">${t.one}</div>
+
       <div class="quad">
-        <div class="axis-y">← 불안 낮음 · 높음 →</div>
+        <div class="qcap">📍 네 유형 중 내 위치</div>
         <div class="qgrid">
           <div class="qc anxious ${type==='anxious'?'on':''}"><span class="qe">🥺</span><span class="qn">불안형</span></div>
           <div class="qc fearful ${type==='fearful'?'on':''}"><span class="qe">🌪️</span><span class="qn">혼란형</span></div>
           <div class="qc secure ${type==='secure'?'on':''}"><span class="qe">😊</span><span class="qn">안정형</span></div>
           <div class="qc avoid ${type==='avoid'?'on':''}"><span class="qe">🧊</span><span class="qn">회피형</span></div>
         </div>
-        <div class="axis"><span>← 회피 낮음</span><span>회피 높음 →</span></div>
+        <div class="qaxis">↑ 위로 갈수록 <b class="c-anxious">불안</b>이 커요<br>→ 오른쪽으로 갈수록 <b class="c-avoid">회피</b>가 커요</div>
       </div>
+
       <div class="scores">
         <div class="sc"><h4><span class="c-anxious">불안 점수</span><span class="badge2">${anx} / 100 · ${anx>=50?'높음':'낮음'}</span></h4>
           <div class="track"><div class="fill anxious" id="fa"></div></div></div>
         <div class="sc"><h4><span class="c-avoid">회피 점수</span><span class="badge2">${avo} / 100 · ${avo>=50?'높음':'낮음'}</span></h4>
           <div class="track"><div class="fill avoid" id="fv"></div></div></div>
       </div>
+
       <div class="detail">
         <div class="panel"><h4>🔍 이런 모습이 자주 보여요</h4><ul>${t.traits.map(x=>`<li>${x}</li>`).join("")}</ul></div>
         <div class="panel grow"><h4>🌱 더 안정적인 관계를 위한 팁</h4><ul>${t.grow.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+        <div class="panel"><h4>📚 당신에게 추천하는 책</h4>
+          ${t.books.map(b=>`<div class="book"><div class="bi">📖</div><div><div class="bt">${b.t}</div><div class="ba">${b.a}</div><div class="bw">${b.w}</div></div></div>`).join("")}
+        </div>
       </div>
+
+      <div class="share">
+        <h4>💌 친구에게 공유하기</h4>
+        <p>이 테스트, 친구도 궁금하지 않을까요? 결과를 함께 비교해 봐요!</p>
+        <div class="sbtns">
+          <button class="sbtn primary" onclick="shareIt('${t.name}')">📤 친구에게 공유</button>
+          <button class="sbtn sec" onclick="copyLink()">🔗 링크 복사</button>
+        </div>
+      </div>
+
       <div class="restart-row"><button class="btn ghost" onclick="restart()">↺ 다시 하기</button></div>
     </div>
     <p class="disclaimer">ECR(친밀 관계 경험 척도)를 응용한 교육용 자가진단이에요. 전문적 심리 진단을 대신하지 않습니다.<br>
-    애착 유형은 타고난 게 아니라 <b class="c-secure">바뀔 수 있는 패턴</b>이에요 — 어떤 결과든 더 안정적으로 나아갈 수 있어요.</p>`;
+    애착 유형은 타고난 게 아니라 <b class="c-secure">바뀔 수 있는 패턴</b>이에요 — 어떤 결과든 더 안정적으로 나아갈 수 있어요. 응원할게요! 🍀</p>`;
   show('result');
   document.getElementById('pp').textContent="100%";
   document.getElementById('pfill').style.width="100%";
   setTimeout(()=>{document.getElementById('fa').style.width=anx+"%";document.getElementById('fv').style.width=avo+"%";},80);
 }
 function restart(){i=0;ans.fill(null);show('intro');}
+
+/* ---- share ---- */
+let toastTimer;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+}
+function shareIt(typeName){
+  const text=`나의 애착 유형은 '${typeName}'! 😊 너의 유형도 궁금해 — 같이 해보자!`;
+  if(navigator.share){
+    navigator.share({title:"애착 유형 테스트", text:text, url:SHARE_URL}).catch(()=>{});
+  } else {
+    copyToClipboard(text+"\n"+SHARE_URL, "결과와 링크가 복사됐어요! 친구에게 붙여넣기 하세요 📋");
+  }
+}
+function copyLink(){ copyToClipboard(SHARE_URL, "링크가 복사됐어요! 📋"); }
+function copyToClipboard(str, okMsg){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(str).then(()=>toast(okMsg)).catch(()=>fallbackCopy(str,okMsg));
+  } else { fallbackCopy(str,okMsg); }
+}
+function fallbackCopy(str, okMsg){
+  const ta=document.createElement('textarea');ta.value=str;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');toast(okMsg);}catch(e){toast("복사가 안 돼요. 주소창의 링크를 직접 복사해 주세요.");}
+  document.body.removeChild(ta);
+}
 </script>
 </body>
 </html>
