@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>애착 유형 테스트</title>
+<style>
+  :root{
+    --bg:#0e1020; --card:#191d38; --card2:#21264a; --ink:#f2f4ff; --sub:#9aa2cc;
+    --line:rgba(255,255,255,.10); --accent:#8b9bff; --accent-soft:rgba(139,155,255,.16);
+    --secure:#34d399; --anxious:#fbbf24; --avoid:#60a5fa; --fearful:#f472b6;
+    --shadow:0 14px 44px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;
+    background:
+      radial-gradient(900px 520px at 85% -8%, rgba(96,165,250,.18) 0%, transparent 58%),
+      radial-gradient(820px 480px at -8% 12%, rgba(244,114,182,.16) 0%, transparent 55%),
+      var(--bg);
+  }
+  .wrap{max-width:600px;margin:0 auto;padding:0 20px}
+  .screen{display:none}
+  .screen.active{display:block}
+  button{font-family:inherit;cursor:pointer}
+
+  /* ---- intro ---- */
+  .hero{text-align:center;padding:74px 0 40px}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:20px}
+  h1{font-size:clamp(30px,6.5vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.28}
+  h1 .g{background:linear-gradient(90deg,#34d399,#60a5fa,#f472b6);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{color:var(--sub);font-size:17px;margin:20px auto 0;max-width:450px}
+  .meta{color:var(--sub);font-size:14px;margin-top:24px;opacity:.85}
+  .btn{border:none;font-weight:700;font-size:17px;color:#0e1020;
+    background:linear-gradient(135deg,#34d399,#60a5fa);
+    padding:16px 42px;border-radius:14px;margin-top:30px;transition:transform .08s,box-shadow .15s}
+  .btn:active{transform:scale(.97)}
+  .btn:hover{box-shadow:0 10px 30px rgba(96,165,250,.4)}
+  .btn.ghost{background:var(--card2);color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#2a3057;box-shadow:none}
+
+  /* ---- progress ---- */
+  .topbar{position:sticky;top:0;background:rgba(14,16,32,.86);backdrop-filter:blur(10px);
+    padding:18px 0 14px;z-index:5}
+  .pcount{font-size:13.5px;font-weight:600;color:var(--sub);display:flex;justify-content:space-between;margin-bottom:9px}
+  .ptrack{height:8px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden}
+  .pfill{height:100%;width:0;background:linear-gradient(90deg,#34d399,#60a5fa);border-radius:999px;transition:width .25s ease}
+
+  /* ---- question ---- */
+  .qbox{padding-top:44px}
+  .qnum{color:var(--accent);font-weight:800;font-size:15px}
+  .qtext{font-size:clamp(22px,4.2vw,28px);font-weight:700;line-height:1.5;margin-top:12px;min-height:88px}
+  .scale{display:flex;flex-direction:column;gap:11px;margin-top:32px}
+  .opt{display:flex;align-items:center;gap:14px;text-align:left;width:100%;
+    border:1.5px solid var(--line);background:var(--card);color:var(--ink);
+    border-radius:14px;padding:17px 18px;font-size:16.5px;font-weight:500;
+    transition:border-color .12s,background .12s,transform .08s}
+  .opt:hover{border-color:var(--accent);background:var(--card2)}
+  .opt:active{transform:scale(.99)}
+  .opt .num{width:32px;height:32px;flex:none;border-radius:9px;background:rgba(255,255,255,.07);
+    display:grid;place-items:center;font-weight:800;font-size:15px;color:var(--sub);transition:.12s}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel .num{background:var(--accent);color:#0e1020}
+  .navrow{display:flex;margin-top:24px}
+  .nav{background:transparent;border:none;color:var(--sub);font-size:15px;padding:10px 4px;font-weight:600}
+  .nav:hover{color:var(--ink)}
+  .nav:disabled{opacity:.3;cursor:default}
+
+  /* ---- result ---- */
+  .rtop{text-align:center;padding-top:40px}
+  .rcard{background:var(--card);border:1px solid var(--line);border-radius:24px;
+    padding:34px 26px;box-shadow:var(--shadow);text-align:center;margin-top:16px}
+  .remoji{font-size:62px;line-height:1}
+  .rtype{font-size:32px;font-weight:800;margin-top:10px}
+  .rsub{color:var(--sub);font-size:15px;margin-top:2px;letter-spacing:.04em}
+  .roneline{font-size:17px;margin-top:18px;color:var(--ink)}
+
+  /* ---- big clear quadrant ---- */
+  .quad{position:relative;margin:36px auto 6px;max-width:330px}
+  .qgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;aspect-ratio:1/1}
+  .qc{border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;border:2px solid var(--line);background:var(--card2);transition:.35s;opacity:.5}
+  .qc .qe{font-size:27px;filter:grayscale(.4)}
+  .qc .qn{font-size:14px;font-weight:700;color:var(--sub)}
+  .qc.on{opacity:1;transform:scale(1.05);box-shadow:0 10px 28px rgba(0,0,0,.4)}
+  .qc.on .qe{filter:none}
+  .qc.on .qn{color:#0e1020}
+  .qc.on.secure{background:var(--secure);border-color:var(--secure)}
+  .qc.on.anxious{background:var(--anxious);border-color:var(--anxious)}
+  .qc.on.avoid{background:var(--avoid);border-color:var(--avoid)}
+  .qc.on.fearful{background:var(--fearful);border-color:var(--fearful)}
+  .axis{display:flex;justify-content:space-between;color:var(--sub);font-size:12.5px;font-weight:600;margin-top:11px;padding:0 2px}
+  .axis-y{position:absolute;left:-26px;top:50%;transform:translateY(-50%) rotate(-90deg);
+    color:var(--sub);font-size:12.5px;font-weight:600;white-space:nowrap}
+
+  /* score bars */
+  .scores{margin-top:30px;text-align:left;display:flex;flex-direction:column;gap:18px}
+  .sc h4{font-size:14.5px;font-weight:700;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+  .sc .badge2{font-weight:600;font-size:13px;color:var(--sub)}
+  .sc .track{height:13px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden}
+  .sc .fill{height:100%;border-radius:999px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .fill.anxious{background:var(--anxious)} .fill.avoid{background:var(--avoid)}
+
+  .detail{text-align:left;margin-top:26px}
+  .panel{border-top:1px solid var(--line);padding-top:20px;margin-top:18px}
+  .panel h4{font-size:15.5px;font-weight:800;margin-bottom:12px}
+  .panel ul{list-style:none}
+  .panel li{position:relative;padding-left:24px;margin:10px 0;font-size:15.5px;color:var(--ink)}
+  .panel li::before{content:"";position:absolute;left:3px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .panel.grow li::before{background:var(--secure)}
+
+  .c-secure{color:var(--secure)} .c-anxious{color:var(--anxious)}
+  .c-avoid{color:var(--avoid)} .c-fearful{color:var(--fearful)}
+
+  .disclaimer{color:var(--sub);font-size:13px;margin:24px auto 64px;text-align:center;line-height:1.75;max-width:480px}
+  .restart-row{margin-top:28px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- INTRO -->
+  <section class="screen active" id="intro">
+    <div class="hero">
+      <div class="eyebrow">애착 유형 자가진단 · ECR 기반</div>
+      <h1>나는 어떤<br><span class="g">애착 유형</span>일까?</h1>
+      <p class="lede">가까운 관계에서의 내 모습에 대한 16개의 문장. 답하면 <b>불안</b>과 <b>회피</b> 점수로 네 가지 유형 중 하나를 알려드려요.</p>
+      <p class="meta">약 2분 · 답을 고르면 바로 넘어가요 · 결과는 전송되지 않아요</p>
+      <button class="btn" onclick="start()">시작하기</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="screen" id="quiz">
+    <div class="topbar">
+      <div class="pcount"><span id="pc">1 / 16</span><span id="pp">0%</span></div>
+      <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+    </div>
+    <div class="qbox">
+      <div class="qnum" id="qnum">Q1</div>
+      <div class="qtext" id="qtext"></div>
+      <div class="scale" id="scale"></div>
+      <div class="navrow"><button class="nav" id="prev" onclick="prev()">← 이전 질문</button></div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="result"></section>
+
+</div>
+
+<script>
+const Q=[
+  {t:"연락이 평소보다 늦어지면 '내가 뭘 잘못했나' 하는 생각이 든다.",d:"anx"},
+  {t:"상대가 날 정말 사랑하는지 자주 확인받고 싶다.",d:"anx"},
+  {t:"가까운 사람에게 내 감정과 속마음을 털어놓는 게 편하다.",d:"avo",rev:true},
+  {t:"상대가 나만큼 날 생각하지 않을까 봐 걱정될 때가 많다.",d:"anx"},
+  {t:"누군가에게 의지하거나 기대는 것이 불편하다.",d:"avo"},
+  {t:"버림받거나 혼자 남겨지는 것이 두렵다.",d:"anx"},
+  {t:"관계가 깊어지면 오히려 답답하고 거리를 두고 싶어진다.",d:"avo"},
+  {t:"필요할 때 상대에게 도움이나 위로를 요청하는 편이다.",d:"avo",rev:true},
+  {t:"상대의 작은 말투나 표정 변화에 마음이 크게 흔들린다.",d:"anx"},
+  {t:"내 고민은 혼자 해결하는 게 마음 편하다.",d:"avo"},
+  {t:"갈등이 생기면 불안해서 빨리 풀고 싶어 안절부절못한다.",d:"anx"},
+  {t:"감정을 드러내기보다 속으로 삭이는 편이다.",d:"avo"},
+  {t:"가까워도, 혼자 있어도 둘 다 마음이 편안하다.",d:"both",rev:true},
+  {t:"상대가 떠날까 봐 관계에서 자주 매달리게 된다.",d:"anx"},
+  {t:"상대가 너무 가까이 다가오면 부담스럽게 느껴진다.",d:"avo"},
+  {t:"갈등이 생기면 대화를 피하거나 입을 닫아버리는 편이다.",d:"avo"},
+];
+const SCALE=[{n:1,t:"전혀 아니다"},{n:2,t:"아니다"},{n:3,t:"보통이다"},{n:4,t:"그렇다"},{n:5,t:"매우 그렇다"}];
+let i=0;const ans=new Array(Q.length).fill(null);
+
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function start(){show('quiz');render();}
+function render(){
+  const q=Q[i];
+  document.getElementById('qnum').textContent="Q"+(i+1);
+  document.getElementById('qtext').textContent=q.t;
+  document.getElementById('pc').textContent=(i+1)+" / "+Q.length;
+  const pct=Math.round(i/Q.length*100);
+  document.getElementById('pp').textContent=pct+"%";
+  document.getElementById('pfill').style.width=pct+"%";
+  document.getElementById('prev').disabled=(i===0);
+  const sc=document.getElementById('scale');sc.innerHTML="";
+  SCALE.forEach(o=>{
+    const b=document.createElement('button');
+    b.className="opt"+(ans[i]===o.n?" sel":"");
+    b.innerHTML=`<span class="num">${o.n}</span><span>${o.t}</span>`;
+    b.onclick=()=>choose(o.n);
+    sc.appendChild(b);
+  });
+}
+function choose(v){ans[i]=v; if(i<Q.length-1){i++;render();} else finish();}
+function prev(){if(i>0){i--;render();}}
+function finish(){
+  let anxI=[],avoI=[];
+  Q.forEach((q,idx)=>{let v=ans[idx]||3;if(q.rev)v=6-v;
+    if(q.d==="anx")anxI.push(v);else if(q.d==="avo")avoI.push(v);else{anxI.push(v);avoI.push(v);}});
+  const avg=a=>a.reduce((s,x)=>s+x,0)/a.length;
+  const anx=Math.round((avg(anxI)-1)/4*100);
+  const avo=Math.round((avg(avoI)-1)/4*100);
+  const hiA=anx>=50,hiV=avo>=50;
+  let type=(!hiA&&!hiV)?"secure":(hiA&&!hiV)?"anxious":(!hiA&&hiV)?"avoid":"fearful";
+  showResult(type,anx,avo);
+}
+const INFO={
+  secure:{emoji:"😊",name:"안정형",en:"SECURE",cls:"secure",
+    one:"가까워도, 혼자여도 괜찮은 사람. 친밀함과 독립 사이의 균형이 자연스러워요.",
+    traits:["감정을 솔직히 표현하고, 기댈 줄도 안다","상대가 기대오는 것도 편안하게 받아들인다","갈등을 '위협'이 아니라 '함께 풀 문제'로 본다"],
+    grow:["지금의 안정감이 큰 강점이에요 — 관계의 '안전기지'가 되어줄 수 있어요","불안형·회피형 상대를 진정시켜 주는 역할을 할 수 있어요","솔직한 소통을 계속 이어가세요"]},
+  anxious:{emoji:"🥺",name:"불안형",en:"ANXIOUS",cls:"anxious",
+    one:"사랑받고 싶은 마음이 크고, 버림받음에 대한 두려움이 핵심인 유형이에요.",
+    traits:["끊임없는 확인과 안심을 필요로 한다","연락이 늦으면 금세 불안하고 거절감을 느낀다","상대의 작은 신호를 과하게 해석한다"],
+    grow:["불안이 올라오면 '잠시 멈추고 진정하기'를 연습해요","혼자 해석하기 전에 직접 물어보세요 — 대부분 최악의 상상은 사실이 아니에요","스스로를 안심시키는 힘을 키우면 관계가 한결 편해져요"]},
+  avoid:{emoji:"🧊",name:"회피형",en:"AVOIDANT",cls:"avoid",
+    one:"독립을 무엇보다 중시하고, 친밀함을 거리 두기로 방어하는 유형이에요.",
+    traits:["독립심이 강하고 깊은 감정 교류를 불편해한다","감정을 잘 드러내지 않고 속으로 누른다","가까워지면 답답함을 느껴 거리를 둔다"],
+    grow:["도망가고 싶을 때 '머물러 한마디 표현하기'를 연습해요","기대는 건 약점이 아니라 친밀함의 일부예요","작은 감정부터 조금씩 나눠 보면 관계가 깊어져요"]},
+  fearful:{emoji:"🌪️",name:"혼란형",en:"FEARFUL-AVOIDANT",cls:"fearful",
+    one:"불안과 회피가 한 사람 안에 공존해, 가까워지고 싶으면서도 그게 무서운 유형이에요.",
+    traits:["사랑을 원하면서 동시에 두려워한다","가까워지면 밀어내고, 멀어지면 끌어당긴다","감정과 행동이 예측하기 어렵게 오간다"],
+    grow:["밀고 당기는 패턴이 '내 안전장치'였음을 알아차리는 게 첫걸음","안전하고 일관된 사람과의 반복 경험이 가장 큰 약이 돼요","트라우마가 얽혀 있다면 상담의 도움이 특히 효과적이에요"]},
+};
+function showResult(type,anx,avo){
+  const t=INFO[type];const el=document.getElementById('result');
+  el.innerHTML=`
+    <div class="rtop"><div class="eyebrow">당신의 결과</div></div>
+    <div class="rcard">
+      <div class="remoji">${t.emoji}</div>
+      <div class="rtype c-${t.cls}">${t.name}</div>
+      <div class="rsub">${t.en}</div>
+      <div class="roneline">${t.one}</div>
+      <div class="quad">
+        <div class="axis-y">← 불안 낮음 · 높음 →</div>
+        <div class="qgrid">
+          <div class="qc anxious ${type==='anxious'?'on':''}"><span class="qe">🥺</span><span class="qn">불안형</span></div>
+          <div class="qc fearful ${type==='fearful'?'on':''}"><span class="qe">🌪️</span><span class="qn">혼란형</span></div>
+          <div class="qc secure ${type==='secure'?'on':''}"><span class="qe">😊</span><span class="qn">안정형</span></div>
+          <div class="qc avoid ${type==='avoid'?'on':''}"><span class="qe">🧊</span><span class="qn">회피형</span></div>
+        </div>
+        <div class="axis"><span>← 회피 낮음</span><span>회피 높음 →</span></div>
+      </div>
+      <div class="scores">
+        <div class="sc"><h4><span class="c-anxious">불안 점수</span><span class="badge2">${anx} / 100 · ${anx>=50?'높음':'낮음'}</span></h4>
+          <div class="track"><div class="fill anxious" id="fa"></div></div></div>
+        <div class="sc"><h4><span class="c-avoid">회피 점수</span><span class="badge2">${avo} / 100 · ${avo>=50?'높음':'낮음'}</span></h4>
+          <div class="track"><div class="fill avoid" id="fv"></div></div></div>
+      </div>
+      <div class="detail">
+        <div class="panel"><h4>🔍 이런 모습이 자주 보여요</h4><ul>${t.traits.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+        <div class="panel grow"><h4>🌱 더 안정적인 관계를 위한 팁</h4><ul>${t.grow.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      </div>
+      <div class="restart-row"><button class="btn ghost" onclick="restart()">↺ 다시 하기</button></div>
+    </div>
+    <p class="disclaimer">ECR(친밀 관계 경험 척도)를 응용한 교육용 자가진단이에요. 전문적 심리 진단을 대신하지 않습니다.<br>
+    애착 유형은 타고난 게 아니라 <b class="c-secure">바뀔 수 있는 패턴</b>이에요 — 어떤 결과든 더 안정적으로 나아갈 수 있어요.</p>`;
+  show('result');
+  document.getElementById('pp').textContent="100%";
+  document.getElementById('pfill').style.width="100%";
+  setTimeout(()=>{document.getElementById('fa').style.width=anx+"%";document.getElementById('fv').style.width=avo+"%";},80);
+}
+function restart(){i=0;ans.fill(null);show('intro');}
+</script>
+</body>
+</html>
